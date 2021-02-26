@@ -33,7 +33,7 @@ function local_smf_before_footer() {
     $context = \context_course::instance($COURSE->id);
     if ($context && ($COURSE->id > 1) ){
         if (has_capability('local/smf:teacher_student_access_course', $context) && !is_siteadmin() ){
-            echo "AQQUI";
+
             $endpoint = get_config('local_smf', 'events');              
             $roles = get_user_roles_in_course($USER->id,$COURSE->id);
             $data = [
