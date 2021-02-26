@@ -25,3 +25,17 @@ function local_smf_extend_navigation(global_navigation $navigation) {
         //$nod->remove(); 
     }
 }
+
+
+function local_smf_before_footer() {
+    global $COURSE;
+
+    $context = \context_course::instance($COURSE->id);
+    if ($context && ($COURSE->id > 1) ){
+        if (has_capability('local/smf:teacher_access_course', $context)){
+            echo "ACCCA";
+        }
+        
+    }
+   
+}
