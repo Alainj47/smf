@@ -2,9 +2,7 @@
 
 namespace local_smf\external;
 
-/**
- * Class get_courses
- */
+use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
@@ -64,7 +62,7 @@ class get_courses extends external_api {
     public static function get_courses_returns() {
         return new external_single_structure(
             array(
-                '$profesor' => new external_value(PARAM_RAW, '$profesor'),
+                'profesor' => new external_value(PARAM_RAW, 'profesor'),
             )
         );
     }
