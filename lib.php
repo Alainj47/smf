@@ -28,7 +28,7 @@ function local_smf_extend_navigation(global_navigation $navigation) {
 
 
 function local_smf_before_footer() {
-    global $COURSE, $USER;
+    global $COURSE, $USER , $DB;
 
     $context = \context_course::instance($COURSE->id);
     if ($context && ($COURSE->id > 1) ){
