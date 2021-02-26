@@ -2,8 +2,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string["pluginname"] = "Smf";
-$string["smf:teacher_access_course"] = 'Acceso al envío de datos por curso profesor con o sin permiso de edición';
-$string["smf:student_access_course"] = 'Acceso al envío de datos por curso Alumnos';
+$string["smf:teacher_student_access_course"] = 'Acceso al envío de datos por curso del rol Profesor con o sin permiso de edición y estudiantes';
+$string["smf:teacher_access_course"] = 'Acceso al envío de datos por curso del Rol Profesor';
+$string["smf:student_access_course"] = 'Acceso al envío de datos por curso del Rol Estudiante';
 $string["events"] = "Endpont events";
 $string["events_dsc"] = "Endpont para crear descripcion";
 $string["add_events"] = "Endpont add_events";
