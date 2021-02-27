@@ -33,7 +33,8 @@ use external_value;
 use invalid_parameter_exception;
 use moodle_exception;
 use Exception;
-
+use local_smf\utils;
+    
 defined('MOODLE_INTERNAL') || die();
 
 class course extends \external_api
@@ -145,7 +146,7 @@ class course extends \external_api
                 array()
             );
             require_login();
-            error_log("logggggggggggggggggggggg");
+            utils::load_chats();
         } catch (\Exception $e) {
             error_log(print_r($e, true));
             throw new moodle_exception('errormsg', 'local_smf', '', $e->getMessage());

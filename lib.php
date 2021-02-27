@@ -31,7 +31,9 @@ function local_smf_before_footer() {
     global $COURSE, $USER, $PAGE;
 
     $context = \context_course::instance($COURSE->id);
-    if ($context && ($COURSE->id > 1) ){
+    $actual_page = (String)$PAGE->url;
+    $course_page = (String)new moodle_url('/course/view.php', array('id' => $COURSE->id));
+    if ($context && ($COURSE->id > 1) && ($actual_page == $course_page)){
         if (has_capability('local/smf:teacher_student_access_course', $context) && !is_siteadmin() ){
 
             $endpoint = get_config('local_smf', 'events');              
@@ -94,11 +96,14 @@ function local_smf_before_footer() {
     
         }
     }
-    
-    function local_smf_before_standard_top_of_body_html(){
+}
+
+function local_smf_before_standard_top_of_body_html(){
         global $COURSE, $PAGE;
-        if($COURSE->id > 1){
+        $actual_page = (String)$PAGE->url;
+        $course_page = (String)new moodle_url('/course/view.php', array('id' => $COURSE->id));
+        
+        if($COURSE->id > 1 && ($actual_page == $course_page)){
             $PAGE->requires->js_call_amd('local_smf/evens_smf', 'init', array());
         }
     }
-}

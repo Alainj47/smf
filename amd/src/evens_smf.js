@@ -11,6 +11,7 @@ define(['jquery', 'core/templates', 'core/config', 'core/ajax'], function($, tem
             //seteo la data al tabulator
             promises[0].done(function(response) {
                 if(response != []){
+                    
                     templates.render("local_smf/course_iframe", response).then(function(html, js) {
                         templates.prependNodeContents("#user-notifications", html, js);
                         $('.chat_smf').click(function(){

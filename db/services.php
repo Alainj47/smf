@@ -20,5 +20,14 @@ $functions = array(
         'ajax'          => true,
         'loginrequired' => false,
     ),
+    'local_smf_load_chats' => array(
+        'classname'   => 'local_smf\external\course',
+        'methodname'  => 'load_chat',
+        'description' => 'Conecta con ws de chat',
+        'type'        => 'read',
+        'services'    => array(MOODLE_OFFICIAL_MOBILE_SERVICE),
+        'ajax'          => true,
+        'loginrequired' => false,
+    ),
 );
 
