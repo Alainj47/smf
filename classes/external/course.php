@@ -60,26 +60,36 @@ class course extends \external_api
     public static function get_template()
     {
         global $DB, $CFG, $USER, $OUTPUT;
-        error_log("llego al ws");
-        
         try {
             $params = self::validate_parameters(
                 self::get_template_parameters(),
                 array()
             );
             require_login();
-            $data = array();
-            //$bu = $OUTPUT->render_from_template('local_smf/template_course_iframe', []);
-            $html = 'jjjjjjjj';
+            $data = array(
+                'sections' => array()
+            );
+            $get_iframes = get_config('local_smf', 'numberofiframes');
+            for ($i = 1; $i <= $get_iframes; $i++) {
+                $get_name = !empty(get_config('local_smf', 'iframe_name_' . $i)) ? get_config('local_smf', 'iframe_name_' . $i) : '';
+                $get_name_bool = !empty(get_config('local_smf', 'iframe_name_' . $i)) ? true : false;
+                $get_url = !empty(get_config('local_smf', 'iframe_url_' . $i)) ? get_config('local_smf', 'iframe_url_' . $i) : '';
+                $get_url_bool = !empty(get_config('local_smf', 'iframe_url_' . $i)) ? true : false;
+                $chat_bool = ($i == 1) ? true : false;
+                $data['iframes'][] = array(
+                    'sectionid' => $i,
+                    'name' => $get_name,
+                    'name_bool' => $get_name_bool,
+                    'url' => $get_url,
+                    'url_bool' => $get_url_bool,
+                    'chat_bool' => $chat_bool
+                );
+            }
         } catch (\Exception $e) {
             error_log(print_r($e, true));
             throw new moodle_exception('errormsg', 'local_smf', '', $e->getMessage());
         }
-
-        
-        return [
-            'html' => $html
-        ];
+        return $data;
     }
 
     /**
@@ -88,9 +98,21 @@ class course extends \external_api
     public static function get_template_returns()
     {
         return new external_single_structure(
-            [
-                'html' => new external_value(PARAM_RAW, 'elearningbool', VALUE_OPTIONAL, ''),
-            ]
+            array(
+                'iframes' => new external_multiple_structure( 
+                    new external_single_structure(
+                        array(
+                            'name' => new external_value(PARAM_RAW, 'Name'),
+                            'name_bool' => new external_value(PARAM_BOOL, 'Name bool'),
+                            'url' => new external_value(PARAM_RAW, 'Url iframe'),
+                            'url_bool' => new external_value(PARAM_BOOL, 'Url iframe bool'),
+                            'chat_bool' => new external_value(PARAM_BOOL, 'chat', VALUE_OPTIONAL),
+                            'sectionid' => new external_value(PARAM_RAW, 'chat'),
+                            
+                        )
+                    )
+                )
+            )
         );
     }
 }

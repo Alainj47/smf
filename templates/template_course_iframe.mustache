@@ -1,1 +1,28 @@
-templateeeeeeeeeeeeeeeeeeee
+<div class="accordion-report-unicundi">
+    <div class="accordion accordion-content" id="accordioncundinamarca{{sectionid1}}">
+
+        {{#iframes}}
+            {{#name_bool}}
+                <div class="card z-depth-0 bordered accordion-content-borderer mb-2" data-toggle="collapse" data-target="#collapse{{sectionid}}"
+                          aria-expanded="true" aria-controls="collapse{{sectionid}}">
+                    <div class="card-header card-header-carrousel {{#chat_bool}}chat_smf{{/chat_bool}}" id="heading{{sectionid}}">
+                        <h5 class="mb-0">
+
+                            <button class="btn btn-link" type="button" >
+                                {{name}}
+                                <i class="fa fa-angle-down fa-rotate-vertical"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    {{#url_bool}}
+                        <div id="collapse{{sectionid}}" class="collapse in" aria-labelledby="heading{{sectionid}}" data-parent="#accordioncundinamarca{{sectionid1}}">
+                            <div class="card-body">
+                                <iframe src="{{url}}" frameborder="0" hspace="0" vspace="0" marginheight="0" marginwidth="0" width="100%" height="300px"></iframe>
+                            </div>
+                        </div>
+                    {{/url_bool}}
+                </div>
+            {{/name_bool}}
+        {{/iframes}}
+    </div>
+</div>

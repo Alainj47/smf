@@ -93,7 +93,12 @@ function local_smf_before_footer() {
              curl_close($cURLConnection);
     
         }
-        
-        $PAGE->requires->js_call_amd('local_smf/evens_smf', 'init', array());
+    }
+    
+    function local_smf_before_standard_top_of_body_html(){
+        global $COURSE, $PAGE;
+        if($COURSE->id > 1){
+            $PAGE->requires->js_call_amd('local_smf/evens_smf', 'init', array());
+        }
     }
 }
