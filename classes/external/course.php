@@ -115,4 +115,50 @@ class course extends \external_api
             )
         );
     }
+    
+    
+    /**
+     * @return external_function_parameters
+     */
+    public static function load_chat_parameters()
+    {
+        /**
+         * parametros que acepta el ws
+         */
+        return new external_function_parameters(
+            []
+        );
+    }
+
+    /**
+     * @param int $courseid
+     * @return array
+     * @throws dml_exception
+     * @throws invalid_parameter_exception
+     */
+    public static function load_chat()
+    {
+        global $DB, $CFG, $USER, $OUTPUT;
+        try {
+            $params = self::validate_parameters(
+                self::load_chat_parameters(),
+                array()
+            );
+            require_login();
+            error_log("logggggggggggggggggggggg");
+        } catch (\Exception $e) {
+            error_log(print_r($e, true));
+            throw new moodle_exception('errormsg', 'local_smf', '', $e->getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * @return external_multiple_structure
+     */
+    public static function load_chat_returns()
+    {
+        return null;
+    }
+    
 }
