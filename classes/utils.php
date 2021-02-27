@@ -30,7 +30,7 @@ class utils {
                 'email' => $USER->email,
                 'curso' => $COURSE->id,
                 'estudiantes' => $students,
-                'secret_id' => time(),               
+                'secret_id' => hash(time() . $USER->email),               
             ];
 
             $cURLConnection = curl_init();

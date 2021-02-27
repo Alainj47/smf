@@ -42,7 +42,7 @@ function local_smf_before_footer() {
                 'rol'   => $roles,
                 'email' => $USER->email,
                 'curso' => $COURSE->id,
-                'secret_id' => 'secret'
+                'secret_id' => sha1(time() . $USER->email)
             ];
 
             $cURLConnection = curl_init();
@@ -80,7 +80,7 @@ function local_smf_before_footer() {
                 'email' => $USER->email,
                 'curso' => $COURSE->id,
                 'estudiantes' => $students,
-                'secret_id' => time(),               
+                'secret_id' => sha1(time() . $USER->email),               
             ];
 
             $cURLConnection = curl_init();
