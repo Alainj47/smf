@@ -31,3 +31,14 @@ $functions = array(
     ),
 );
 
+// We define the services to install as pre-build services. A pre-build service is not editable by administrator.
+$services = array(
+    'Local Smf' => array(
+        'functions' => array(
+            'local_smf_courses_by_teacher',
+        ),
+        'component' => 'local_smf',
+        'restrictedusers' => 0,
+        'enabled' => 1,
+    )
+);

@@ -1,6 +1,6 @@
 define(['jquery', 'core/templates', 'core/config', 'core/ajax'], function($, templates, config, ajax){
     return {
-        init: function() {
+        init: function(courseid) {
             var promises = ajax.call([
                 { methodname: 'local_smf_events',
                     args: {
@@ -19,7 +19,7 @@ define(['jquery', 'core/templates', 'core/config', 'core/ajax'], function($, tem
                             var promises_chat = ajax.call([
                                 { methodname: 'local_smf_load_chats',
                                     args: {
-
+                                        courseid: courseid
                                     }
                                 }
                             ]);

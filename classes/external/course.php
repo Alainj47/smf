@@ -60,7 +60,7 @@ class course extends \external_api
      */
     public static function get_template()
     {
-        global $DB, $CFG, $USER, $OUTPUT;
+        global $DB, $CFG, $USER, $OUTPUT, $SESSION;
         try {
             $params = self::validate_parameters(
                 self::get_template_parameters(),
@@ -81,7 +81,7 @@ class course extends \external_api
                     'sectionid' => $i,
                     'name' => $get_name,
                     'name_bool' => $get_name_bool,
-                    'url' => $get_url,
+                    'url' => $get_url . '?secret_id=' . $SESSION->hashsecred,
                     'url_bool' => $get_url_bool,
                     'chat_bool' => $chat_bool
                 );
@@ -127,7 +127,11 @@ class course extends \external_api
          * parametros que acepta el ws
          */
         return new external_function_parameters(
-            []
+            [
+                'courseid' => new external_value(
+                    PARAM_RAW
+                ),
+            ]
         );
     }
 
@@ -137,16 +141,17 @@ class course extends \external_api
      * @throws dml_exception
      * @throws invalid_parameter_exception
      */
-    public static function load_chat()
+    public static function load_chat($courseid)
     {
-        global $DB, $CFG, $USER, $OUTPUT;
+        global $DB, $CFG, $USER, $OUTPUT,$COURSE;
         try {
-            $params = self::validate_parameters(
-                self::load_chat_parameters(),
-                array()
-            );
+//            $params = self::validate_parameters(
+//                self::load_chat_parameters(),
+//                array()
+//            );
+            
             require_login();
-            utils::load_chats();
+            utils::load_chats($courseid);
         } catch (\Exception $e) {
             error_log(print_r($e, true));
             throw new moodle_exception('errormsg', 'local_smf', '', $e->getMessage());
