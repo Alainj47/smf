@@ -36,7 +36,7 @@ function local_smf_before_footer() {
             if (has_capability('local/smf:teacher_student_access_course', $context) && !is_siteadmin()) {
 
                 $endpoint = get_config('local_smf', 'events');
-                $roles = get_user_roles_in_course($USER->id, $COURSE->id);
+                $roles = \local_smf\utils::get_user_roles_in_course($USER->id, $COURSE->id);
                 $data = [
                     'rol' => $roles,
                     'email' => $USER->email,
@@ -59,13 +59,12 @@ function local_smf_before_footer() {
 
             if (has_capability('local/smf:teacher_access_course', $context) && !is_siteadmin()) {
                 $endpoint = get_config('local_smf', 'add_events');
-                $roles = get_user_roles_in_course($USER->id, $COURSE->id);
-
+                $roles = \local_smf\utils::get_user_roles_in_course($USER->id, $COURSE->id);
                 $enrolled = get_enrolled_users($context, 'local/smf:student_access_course');
                 $students = [];
 
                 foreach ($enrolled as $enrol) {
-                    $rol = get_user_roles_in_course($enrol->id, $COURSE->id);
+                    $rol = \local_smf\utils::get_user_roles_in_course($enrol->id, $COURSE->id);
                     $student = [
                         "nombre" => $enrol->firstname . " " . $enrol->lastname,
                         "mail" => $enrol->email,
@@ -90,9 +89,9 @@ function local_smf_before_footer() {
                     'Content-Type:application/json'
                 ));
                 $response = curl_exec($cURLConnection);
-                error_log(print_r($response, true));
                 $httpcode = curl_getinfo($cURLConnection, CURLINFO_HTTP_CODE);
                 curl_close($cURLConnection);
+               
             }
         }
     }
