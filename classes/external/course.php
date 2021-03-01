@@ -48,7 +48,11 @@ class course extends \external_api
          * parametros que acepta el ws
          */
         return new external_function_parameters(
-            []
+            [
+                'courseid' => new external_value(
+                    PARAM_RAW
+                ),
+            ]
         );
     }
 
@@ -58,14 +62,11 @@ class course extends \external_api
      * @throws dml_exception
      * @throws invalid_parameter_exception
      */
-    public static function get_template()
+    public static function get_template($courseid)
     {
         global $DB, $CFG, $USER, $OUTPUT, $SESSION;
         try {
-            $params = self::validate_parameters(
-                self::get_template_parameters(),
-                array()
-            );
+            $context = \context_course::instance($courseid);
             require_login();
             $data = array(
                 'sections' => array()
@@ -77,6 +78,13 @@ class course extends \external_api
                 $get_url = !empty(get_config('local_smf', 'iframe_url_' . $i)) ? get_config('local_smf', 'iframe_url_' . $i) : '';
                 $get_url_bool = !empty(get_config('local_smf', 'iframe_url_' . $i)) ? true : false;
                 $chat_bool = ($i == 1) ? true : false;
+                if($i == 3){
+                    if(\has_capability('local/smf:teacher_access_course', $context)){
+                        $get_name_bool = true;
+                    } else {
+                        $get_name_bool = false;
+                    }
+                } 
                 $data['iframes'][] = array(
                     'sectionid' => $i,
                     'name' => $get_name,
