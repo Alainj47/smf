@@ -4,8 +4,7 @@ services:
     image: moodlehq/moodle-php-apache:7.2
     volumes:
       - ${MOODLE_DIR}:/var/www/html
-      - ./local/smf:/var/www/html/local/smf
-      - ./mod/smfcollapse:/var/www/html/mod/smfcollapse
+      - ./:/var/www/html/local/smf
     ports:
       - "${MOODLE_PORT}:80"
   db:
